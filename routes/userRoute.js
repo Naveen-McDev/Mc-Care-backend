@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const authMiddleware = require("../config/verifyToken");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// register
 router.post("/register", async (req, res) => {
   try {
     const userExists = await User.findOne({ email: req.body.email });
@@ -29,6 +31,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// login
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -57,5 +60,28 @@ router.post("/login", async (req, res) => {
       .send({ message: "Error logging in", success: false, error });
   }
 });
+
+// get user info by id
+router.post("/get-user-info-by-id", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.body.userId });
+    user.password = undefined;
+    if (!user) {
+      return res
+        .status(200)
+        .send({ message: "User does not exist", success: false });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: user,
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error getting user info", success: false, error });
+  }
+});
+
 
 module.exports = router;
