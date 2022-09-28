@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken");
 
+// verify the token received from the frontend for authorization 
+
 module.exports = async (req, res, next) => {
   try {
+    // 
     const token = req.headers["authorization"].split(" ")[1];
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {

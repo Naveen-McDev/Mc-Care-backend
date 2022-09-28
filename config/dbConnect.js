@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const dbConnect = () => {
   try {
     //connecting with mongodb database

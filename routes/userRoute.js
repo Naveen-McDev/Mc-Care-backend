@@ -190,6 +190,7 @@ router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
   }
 });
 
+// book appointment
 router.post("/book-appointment", authMiddleware, async (req, res) => {
   try {
     req.body.status = "pending";
@@ -219,6 +220,7 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
   }
 });
 
+// check for availability
 router.post("/check-booking-avilability", authMiddleware, async (req, res) => {
   try {
     const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
@@ -253,6 +255,7 @@ router.post("/check-booking-avilability", authMiddleware, async (req, res) => {
   }
 });
 
+// get appointment by user id
 router.get("/get-appointments-by-user-id", authMiddleware, async (req, res) => {
   try {
     const appointments = await Appointment.find({ userId: req.body.userId });

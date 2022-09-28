@@ -5,6 +5,7 @@ const authMiddleware = require("../config/verifyToken");
 const Appointment = require("../models/appointmentModel");
 const User = require("../models/userModel");
 
+// get doctor info by user id
 router.post("/get-doctor-info-by-user-id", authMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ userId: req.body.userId });
@@ -20,6 +21,7 @@ router.post("/get-doctor-info-by-user-id", authMiddleware, async (req, res) => {
   }
 });
 
+// get doctor info by id
 router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ _id: req.body.doctorId });
@@ -35,6 +37,7 @@ router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
   }
 });
 
+// update doctor profile
 router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOneAndUpdate(
@@ -53,6 +56,7 @@ router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
   }
 });
 
+// get appointments by doctor id
 router.get(
   "/get-appointments-by-doctor-id",
   authMiddleware,
@@ -76,6 +80,7 @@ router.get(
   }
 );
 
+// change appointment status
 router.post("/change-appointment-status", authMiddleware, async (req, res) => {
   try {
     const { appointmentId, status } = req.body;

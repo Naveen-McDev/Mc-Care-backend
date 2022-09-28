@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const Doctor = require("../models/doctorModel");
 const authMiddleware = require("../config/verifyToken");
 
+// get all doctors
 router.get("/get-all-doctors", authMiddleware, async (req, res) => {
   try {
     const doctors = await Doctor.find({});
@@ -22,6 +23,7 @@ router.get("/get-all-doctors", authMiddleware, async (req, res) => {
   }
 });
 
+// get all users
 router.get("/get-all-users", authMiddleware, async (req, res) => {
   try {
     const users = await User.find({});
@@ -40,6 +42,7 @@ router.get("/get-all-users", authMiddleware, async (req, res) => {
   }
 });
 
+// change doctor account status
 router.post(
   "/change-doctor-account-status",
   authMiddleware,
